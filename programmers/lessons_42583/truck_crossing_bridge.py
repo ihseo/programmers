@@ -17,4 +17,4 @@ def solution(bridge_length, weight, truck_weights):
             current_weight -= bridge.popleft()
 
     return time_passed + bridge_length
-solution(2, 10, [7, 4, 5, 6])
+print(solution(2, 10, [7, 4, 5, 6]))
