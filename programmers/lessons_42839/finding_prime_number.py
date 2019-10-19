@@ -8,12 +8,11 @@ def is_prime(num):
         return True
     if num % 2 == 0 or num % 3 == 0:
         return False
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
+    for d in range(5, num ** (1/2) + 1, 6):
+        if num % d == 0 or num % (d + 2) == 0:
             return False
-        i += 6
     return True
+
 
 def solution(numbers):
     num_set = set()
@@ -23,8 +22,8 @@ def solution(numbers):
             num_set.add(int(perm))
 
     for num in num_set:
-        if is_prime(num):
-            count += 1
+        count += is_prime(num)
     return count
+
 
 print(solution("011"))
