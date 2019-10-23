@@ -1,13 +1,11 @@
 def solution(prices):
-    ans = []
-    for i in range(len(prices)):
-        value = 0
+    records = [x for x in range(len(prices) - 1, -1, -1)]
+    for i, price in enumerate(prices):
         for j in range(i + 1, len(prices)):
-            if prices[i] <= prices[j]:
-                value += 1
-            else:
-                value += 1
+            if price > prices[j]:
+                records[i] = j - i
                 break
-        ans.append(value)
-    return ans
-solution([1, 2, 3, 2, 3])
+    return records
+
+
+print(solution([1, 2, 3, 2, 3]))
