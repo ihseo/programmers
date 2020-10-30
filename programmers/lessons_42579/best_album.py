@@ -1,17 +1,17 @@
 def solution(genres, plays) -> list:
-    my_dict = {e: [] for e in set(genres)}
-    for g, p in zip(genres, plays):
-        my_dict[g] += [p]
-    sorted_list = [(i, g, p) for i, (g, p) in sorted(enumerate(zip(genres, plays)),
-                                    key=lambda x: (-sum(my_dict[x[1][0]]), -x[1][1], x[0]))]
-    count_dict = {e: 0 for e in set([x[1] for x in sorted_list])}
+    answer, sorted_list = [], []
+    count_dict = dict()
+    songs_dict = {e: [] for e in set(genres)}
 
-    answer = []
-    for item in sorted_list:
-        if count_dict[item[1]] == 2:
-            continue
-        answer.append(item[0])
-        count_dict[item[1]] += 1
+    for g, p, i in zip(genres, plays, range(len(genres))):
+        count_dict[g] = count_dict.get(g, 0) + p
+        songs_dict[g] += [(i, p)]
+
+    genres_sorted = sorted(count_dict.keys(), key=lambda x: -count_dict[x])
+    for genre in genres_sorted:
+        sorted_list = sorted(songs_dict[genre], key=lambda x: (-x[1], x[0]))
+        answer.extend([i for i, p in sorted_list][:2])
+
     return answer
 
-print(solution(['classic', 'a', 'kill', 'kill', 'kill', 'kill', 'pop', 'classic', 'a', 'classic', 'pop'], [500, 15555, 3550, 3550, 923, 2244, 3, 409, 150, 800, 2500]))
+print(solution(['classic', 'pop', 'classic', 'classic', 'pop'], [500, 600, 150, 800, 2500]))
